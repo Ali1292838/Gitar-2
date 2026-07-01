@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AURELIAN GUITARS | Crafted for the Extraordinary</title>
+    
+    <!-- Tailwind & Plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Inter:wght@300;400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Three.js (3D Engine) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="font-body-md text-body-md selection:bg-primary/30">
+
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 w-full z-50 transition-all duration-500 bg-transparent" id="top-nav">
+        <div class="flex justify-between items-center px-margin-desktop py-4 w-full max-w-container-max mx-auto">
+            <a class="font-display-lg text-headline-md tracking-tighter text-primary" href="#">AURELIAN GUITARS</a>
+            <div class="hidden md:flex items-center gap-8">
+                <a class="font-label-md text-label-md text-primary border-b border-primary pb-1" href="#">Showroom</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Vintage</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Custom Shop</a>
+                <a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Journal</a>
+            </div>
+            <div class="flex items-center gap-6">
+                <button class="text-primary hover:scale-110 transition-transform">
+                    <span class="material-symbols-outlined">search</span>
+                </button>
+                <button class="text-primary hover:scale-110 transition-transform" id="cart-toggle">
+                    <span class="material-symbols-outlined">shopping_cart</span>
+                </button>
+                <button class="md:hidden text-primary" id="menu-toggle">
+                    <span class="material-symbols-outlined">menu</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Side Navigation (Collection Drawer) -->
+    <div class="fixed right-0 top-0 h-full w-96 z-[60] bg-surface-container-low border-l border-outline-variant shadow-2xl translate-x-full transition-transform duration-500 ease-out flex flex-col p-8" id="side-nav">
+        <div class="flex justify-between items-center mb-12">
+            <div>
+                <h2 class="font-headline-md text-headline-md text-primary">Your Collection</h2>
+                <p class="font-body-md text-body-md opacity-60">Curating Excellence</p>
+            </div>
+            <button class="text-primary" id="close-nav">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        <div class="flex flex-col gap-6 flex-grow">
+            <a class="flex items-center gap-4 text-primary font-bold hover:translate-x-[-4px] transition-transform" href="#">
+                <span class="material-symbols-outlined">curtains</span> Instruments
+            </a>
+            <a class="flex items-center gap-4 text-on-surface-variant hover:text-primary hover:translate-x-[-4px] transition-transform" href="#">
+                <span class="material-symbols-outlined">settings_input_component</span> Accessories
+            </a>
+            <a class="flex items-center gap-4 text-on-surface-variant hover:text-primary hover:translate-x-[-4px] transition-transform" href="#">
+                <span class="material-symbols-outlined">checkroom</span> Apparel
+            </a>
+            <a class="flex items-center gap-4 text-on-surface-variant hover:text-primary hover:translate-x-[-4px] transition-transform" href="#">
+                <span class="material-symbols-outlined">handyman</span> Services
+            </a>
+        </div>
+        <button class="w-full bg-primary text-on-primary-fixed py-4 rounded-lg font-bold bloom-hover transition-all">
+            Checkout Now
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center pt-24 overflow-hidden px-margin-mobile md:px-margin-desktop">
+        <div class="w-full max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-gutter items-center relative z-10">
+            <div data-aos="fade-right" data-aos-duration="1200">
+                <span class="inline-block px-4 py-1 border border-primary/30 rounded-full text-label-sm text-primary mb-6">ESTABLISHED 1924</span>
+                <h1 class="font-display-lg text-display-lg-mobile md:text-display-lg text-primary leading-tight mb-8">
+                    Diciptakan untuk Musisi yang Menghargai <span class="italic">Kesempurnaan</span>.
+                </h1>
+                <p class="font-body-lg text-body-lg text-on-surface-variant mb-10 max-w-lg">
+                    Eksplorasi keindahan nada dengan instrumen premium yang dikerajinkan secara presisi untuk jiwa yang berani berekspresi.
+                </p>
+                <div class="flex flex-wrap gap-6">
+                    <button class="bg-primary text-on-primary px-8 py-4 rounded-full font-bold bloom-hover transition-all flex items-center gap-2">
+                        Eksplorasi Showroom
+                        <span class="material-symbols-outlined">arrow_forward</span>
+                    </button>
+                    <button class="border border-secondary text-secondary px-8 py-4 rounded-full font-bold hover:bg-secondary/10 transition-all">
+                        Custom Shop
+                    </button>
+                </div>
+            </div>
+            <!-- Container Animasi 3D Gitar -->
+            <div class="relative h-[500px] md:h-[700px]" data-aos="fade-left" data-aos-duration="1500">
+                <div id="threejs-container" class="w-full h-full"></div>
+                <div class="absolute -bottom-10 -left-10 w-48 h-48 bg-primary/10 blur-[100px] rounded-full"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Partner Marquee -->
+    <section class="py-20 bg-surface-container-lowest border-y border-primary/5">
+        <div class="marquee-container">
+            <div class="marquee-content flex gap-24 items-center">
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">STRATOCASTER</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">GIBSON HERITAGE</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">MARSHALL SOUND</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">VOX AMPLIFICATION</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">TAYLOR ACOUSTICS</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">FENDER CUSTOM</span>
+                <!-- Duplicate untuk Seamless Loop -->
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">STRATOCASTER</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">GIBSON HERITAGE</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">MARSHALL SOUND</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">VOX AMPLIFICATION</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">TAYLOR ACOUSTICS</span>
+                <span class="text-headline-md font-headline-md opacity-20 text-primary">FENDER CUSTOM</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Categories (Bento Style) -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+        <div class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div data-aos="fade-up">
+                <h2 class="font-display-lg text-headline-lg md:text-display-lg text-primary mb-4">Koleksi Terpilih</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant max-w-md">Setiap kategori dirancang untuk memenuhi kebutuhan sonik yang spesifik dengan standar keahlian tertinggi.</p>
+            </div>
+            <a class="text-primary font-bold flex items-center gap-2 group underline decoration-primary/20 hover:decoration-primary transition-all" href="#">
+                Lihat Semua Koleksi
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">east</span>
+            </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+            <!-- Acoustic -->
+            <div class="md:col-span-8 group relative overflow-hidden rounded-3xl h-[450px] bg-surface-container-low border border-primary/5 shadow-xl" data-aos="zoom-in">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA9BsEE5sUnztNjRt9lvjGgVW6DCTbU9peO3sDKwCikzsbOe5SVd8tfo33HyNUt3lzEdfYs6StZwQAXWXEYRAyxGmDPvep7zBhzQ0xE0yeaFqEAQ2IS_rddDZ80Zp3xutBNE9mlQ9DFTZy8lUExGQkQysF4nO2Gz2tgFMxYV7N7520MKlx8X1AlfLdzZgjrsorUxgVcktDwqJeIfA824ZFdqNy4g1Xhf80l1Ph7lLX2tvTAhMKSlzprGg-0ewEPTDWZpRFFJKFjujcm')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                <div class="absolute bottom-10 left-10">
+                    <h3 class="font-display-lg text-headline-lg text-primary mb-2">Acoustic Series</h3>
+                    <p class="font-body-md text-on-surface-variant">Resonansi murni dari kayu pilihan.</p>
+                </div>
+            </div>
+            <!-- Electric -->
+            <div class="md:col-span-4 group relative overflow-hidden rounded-3xl h-[450px] bg-surface-container-low border border-primary/5 shadow-xl" data-aos="zoom-in" data-aos-delay="100">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDA2cbM7K14a3vTJX0FX8WcSRu-u-da_aDn1faQbTvCs0pnpOQwKyglU9PUUwmt2M2KzY275ab-5tZx-GygGLzk0R6oL67QkP-Oh7FKRLNrMcVx5yAX4CzguDj9I8iqWgxzEYKHANcJzdCACsyYxeF9NRl5supmxBMX_vCwjbgUZwVuNk9GyoTZCFPBbmUlmgOAPl9fLOKi7nEcP71kNiDd-EKHi2xo8upz2ldE2ekmLlDXEpKX_PP4h-R04icVMsgIzi_o62Vi8eyB')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                <div class="absolute bottom-10 left-10">
+                    <h3 class="font-display-lg text-headline-lg text-primary mb-2">Electric</h3>
+                    <p class="font-body-md text-on-surface-variant">Energi tanpa batas.</p>
+                </div>
+            </div>
+            <!-- Bass -->
+            <div class="md:col-span-4 group relative overflow-hidden rounded-3xl h-[450px] bg-surface-container-low border border-primary/5 shadow-xl" data-aos="zoom-in" data-aos-delay="200">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAngk4JN6NqXTx7flDqMjW7tZiYb901spx7nrHXa6yWz4ZPWQt_kQ9bFoQVYCiCTI9B-KHikLRuEvJzoag8w-R8Ox08-7oE6_YSJtSvVqsq1lZoqyv4YXExIHTt3GlvrglvhUyK4pEErpcQ47XppM3sVxCWfyEuKPPVNnc3oGcnUqQbvJSRmpBsdd4sA5ugSsDI4mlfS2FqVynCVt0EzM2hlz-b2vbOVop9TNfjKK3XTEbAvxhysoEYxs1poYGXL7PiqAHKzA-8GkWU')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                <div class="absolute bottom-10 left-10">
+                    <h3 class="font-display-lg text-headline-lg text-primary mb-2">Bass</h3>
+                    <p class="font-body-md text-on-surface-variant">Pondasi harmoni yang kokoh.</p>
+                </div>
+            </div>
+            <!-- Classic -->
+            <div class="md:col-span-8 group relative overflow-hidden rounded-3xl h-[450px] bg-surface-container-low border border-primary/5 shadow-xl" data-aos="zoom-in" data-aos-delay="300">
+                <div class="absolute inset-0 bg-cover bg-center group-hover:scale-105 transition-transform duration-700 opacity-60" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB6L690hEK--OqNwB0AWAYYEWihQ4MZXqG5XagVlgpSD-UrqFMySddwMUIo3TOr2cJJqxC7BO_45aNXurt7PX9Ivh7WLsHzNqBcsdAGmQetcDvmpQW2Yy9aUKBwrvvHmFnL-06YjM0rTwDYNB2Ar6lNkPwPi9t8Zq0yueyV1G_o8pgfamA01VkRYRLs6TyvcCWfAGx2MH61ATkrfGGQSWjn8qQBNZl_m78JoXKe89bCh6SIb4Ba25VlgdXAfOcwP3hOmXUoOA0yXaGh')"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent"></div>
+                <div class="absolute bottom-10 left-10">
+                    <h3 class="font-display-lg text-headline-lg text-primary mb-2">Classic</h3>
+                    <p class="font-body-md text-on-surface-variant">Tradisi dalam setiap petikan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="py-section-gap bg-surface-container-lowest">
+        <div class="px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+            <h2 class="font-display-lg text-headline-lg md:text-display-lg text-primary text-center mb-20" data-aos="fade-up">Masterpiece Series</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <!-- Product 1 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-surface-container mb-6 border border-primary/5">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS3es4cQFLxH0bk55V2DKB7q_lEu4iNb1lVTr9_jFDidQ1xsrsTqBi5zh8dij8vGjF7gXb_srgPticHr9DSKtwZvTvvdKlHALolFE0HU04-yBhH5rVwhON4Ny6PyVq8crmsnM3bldTUnhfOnVR3sfEsT4_lNUUQtM09bASxHzLewSXb1jZ-xMTtHbexj5_K9JaSSli_m0SAaAQ4m4mzIvXD33ZynwWM21JdnQ1PB_MpybON6-sS9WcnNGW36mVw1Jl4AC7dI1maAp7"/>
+                        <span class="absolute top-6 right-6 bg-primary text-on-primary-fixed px-3 py-1 rounded text-label-sm font-bold">LIMITED EDITION</span>
+                        <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary mb-1">Aurelian "Solstice"</h3>
+                            <p class="font-body-md text-on-surface-variant">Flamed Maple &amp; Gold Hardware</p>
+                        </div>
+                        <p class="font-headline-md text-headline-md text-primary">$4,500</p>
+                    </div>
+                </div>
+                <!-- Product 2 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-surface-container mb-6 border border-primary/5">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABovt4aOHGaZGT0DrU7c3eS3jlZ7ep2-axX_u6Fa57HfBKXSEfQn8Sw-GhIabce7UozhmhAC8cGlHXAG_tfcVtmKm0edKYvV_cYhQ4QOZFGrtWOkCUoyvrhHb-7A90YAsxZRqoEEfNmA3BjKbJ1QSieHQKOd0q07J5H0AeekYXGt2G3sl3EyNuqbpgVSryvKuTf9fJl9eQ7pSRnop4Apm7SJICaZAhDqrLrIeIS__7RrEmJ_T-khSszTdSivrLOKfAavHVjP1RmC19"/>
+                        <span class="absolute top-6 right-6 bg-secondary text-on-secondary px-3 py-1 rounded text-label-sm font-bold">BEST SELLER</span>
+                        <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary mb-1">Aurelian "Nocturnal"</h3>
+                            <p class="font-body-md text-on-surface-variant">Ebony Fretboard &amp; Custom Pickups</p>
+                        </div>
+                        <p class="font-headline-md text-headline-md text-primary">$3,800</p>
+                    </div>
+                </div>
+                <!-- Product 3 -->
+                <div class="group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-3xl aspect-[3/4] bg-surface-container mb-6 border border-primary/5">
+                        <img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCC4nducnRjxiUPb9LO6mk8Kbz-T2f_OuDqw4AtRqa2ZjQ9j5GNMibqrvUsza5JLqNZ3BpBauPmQ1alD0r2v0jsj_wE4fwS5cRbWFg1MRh_sJR_ANfEEDovTB8YQs3ixnHs-jHOYBHpWTC7NUX0MGsibyMQI1V5krkxiXdBVYF6Xbw3DpBZ3cXmxS2tWKJB9R4PeRS4qnrJAanTCXkSEV--u-H3zpoBJuvSLzvaiQyNbN1AFCNtqT31CAIwiNVcf7y7mjLJOixKBiKc"/>
+                        <span class="absolute top-6 right-6 bg-primary text-on-primary-fixed px-3 py-1 rounded text-label-sm font-bold">EXCLUSIVE</span>
+                        <div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h3 class="font-headline-md text-headline-md text-primary mb-1">Aurelian "Heritage"</h3>
+                            <p class="font-body-md text-on-surface-variant">Hollow Body &amp; Vintage Voice</p>
+                        </div>
+                        <p class="font-headline-md text-headline-md text-primary">$5,200</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Flagship Showcase -->
+    <section class="relative min-h-screen flex items-center bg-black overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <div class="w-full h-full bg-cover bg-center opacity-40" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB9x0-5IiLsyUMIN-9F2t47-7vqb17U_Luyj-ytD761uejkn7s7xBfE2Qhc_YzIDqX24MH_5PGONqyFMafraSeT0_vhorv91gAK5Ht2a8KeOrD12dV7pT8zcjDv2cYeuVQ0t8nilHYRAvyIloOmRrnhFtutNUG6QwwM8vgBl5hQjOloEolr_7HcFNSY1vN4lkcuhjn96zyHBqDV3cwh7AcF4BCoPz0YDYac_da38xDraNVWauR5AA_XY6koj0EJyoLDloUMd27umI_G')"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-background via-background/80 to-transparent"></div>
+        </div>
+        <div class="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-2 gap-20">
+            <div data-aos="fade-right">
+                <h2 class="font-display-lg text-headline-lg md:text-display-lg text-primary mb-8">The Aurelian Prime</h2>
+                <p class="font-body-lg text-body-lg text-on-surface mb-12 leading-relaxed">
+                    Mahakarya teknik dan estetika. Dibuat selama 120 jam oleh luthier ahli kami menggunakan material paling langka di bumi.
+                </p>
+                <div class="space-y-8">
+                    <div class="flex items-start gap-6 group">
+                        <div class="w-12 h-12 rounded-full border border-primary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+                            <span class="material-symbols-outlined">forest</span>
+                        </div>
+                        <div>
+                            <h4 class="font-headline-md text-headline-md text-primary mb-1">Premium Wood</h4>
+                            <p class="text-on-surface-variant">Brazilian Rosewood and 5A Quilted Maple top.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-6 group">
+                        <div class="w-12 h-12 rounded-full border border-primary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+                            <span class="material-symbols-outlined">hardware</span>
+                        </div>
+                        <div>
+                            <h4 class="font-headline-md text-headline-md text-primary mb-1">Gold Hardware</h4>
+                            <p class="text-on-surface-variant">24K Gold-plated Schaller tuners and bridge.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-6 group">
+                        <div class="w-12 h-12 rounded-full border border-primary flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all">
+                            <span class="material-symbols-outlined">mic</span>
+                        </div>
+                        <div>
+                            <h4 class="font-headline-md text-headline-md text-primary mb-1">Custom Pickups</h4>
+                            <p class="text-on-surface-variant">Hand-wound Aurelian 'Alchemy' Humbuckers.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="mt-16 bg-primary text-on-primary px-10 py-5 rounded-full font-bold bloom-hover flex items-center gap-4 transition-all">
+                    Pre-order Limited Batch
+                    <span class="material-symbols-outlined">star</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="py-section-gap px-margin-mobile md:px-margin-desktop bg-surface-container-low overflow-hidden">
+        <div class="max-w-container-max mx-auto">
+            <h2 class="font-display-lg text-headline-lg md:text-display-lg text-primary text-center mb-20" data-aos="fade-up">Apa Kata Maestro</h2>
+            <div class="flex flex-col md:flex-row gap-gutter">
+                <!-- Testimonial 1 -->
+                <div class="flex-1 p-10 rounded-3xl glass border border-primary/10 bg-surface-container relative" data-aos="fade-up" data-aos-delay="0">
+                    <span class="material-symbols-outlined text-primary/20 text-6xl absolute top-6 right-6">format_quote</span>
+                    <div class="flex gap-1 text-primary mb-6">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                    <p class="font-body-lg text-body-lg italic text-on-surface-variant mb-8 leading-relaxed">
+                        "Saya telah mencoba ribuan instrumen, tapi Aurelian memiliki 'jiwa' yang tidak bisa ditemukan di tempat lain. Kejernihan nadanya sungguh luar biasa."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 overflow-hidden">
+                            <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApC2dNPkswZvO8Y19pGhQeEfF7PP8fhovrnImb-P3FJI2DSbkJwtuNeE57ps_q-EMBs1CLsbVYaXJwTgrZu0ePyGOWXfE2zp7am_d3Ltg_b0Wczme4QzJdOubkoQfTG6fTpo1NKKMoX1GCOlKVgCYTHA8R_P7ha2GlilOO3PWrvgLvksc0KMTdjU-L4jo9P5_1zVFpJPv1Ndus_cnJhf2PSbFBOVMEL74PrVnqNLBizrKg0SkjO6uaxJzHgDBbugBlut9pnc9Di_iO"/>
+                        </div>
+                        <div>
+                            <p class="font-bold text-primary">Julian Casablancas</p>
+                            <p class="text-sm opacity-50">Lead Guitarist, The Nocturnals</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="flex-1 p-10 rounded-3xl glass border border-primary/10 bg-surface-container relative" data-aos="fade-up" data-aos-delay="100">
+                    <span class="material-symbols-outlined text-primary/20 text-6xl absolute top-6 right-6">format_quote</span>
+                    <div class="flex gap-1 text-primary mb-6">
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">star</span>
+                    </div>
+                    <p class="font-body-lg text-body-lg italic text-on-surface-variant mb-8 leading-relaxed">
+                        "Setiap detail dari Aurelian Guitars mencerminkan dedikasi. Tidak hanya instrumen, ini adalah karya seni yang bisa dimainkan."
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-primary/20 overflow-hidden">
+                            <img class="w-full h-full object-cover" id="avatar-fixed" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80"/>
+                        </div>
+                        <div>
+                            <p class="font-bold text-primary">Eleanor Vance</p>
+                            <p class="text-sm opacity-50">Classical Virtuoso</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- External Logic Script -->
+    <script src="script.js"></script>
+</body>
+</html>
