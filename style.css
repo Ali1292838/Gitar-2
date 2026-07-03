@@ -14,38 +14,9 @@
   }
 }
 
-/* Konfigurasi Utility Custom Tailwind Engine */
-<script id="tailwind-config">
-  tailwind.config = {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-            "background": "#0D0D0D",
-            "primary": "#f2ca50",
-            "primary-container": "#d4af37",
-            "on-primary": "#3c2f00",
-            "secondary": "#f4bb92",
-            "surface-container-low": "#1a1c1c",
-            "surface-container-lowest": "#0c0f0f",
-            "on-surface-variant": "#d0c5af",
-            "outline-variant": "#4d4635"
-        },
-        spacing: {
-            "margin-mobile": "20px",
-            "margin-desktop": "64px",
-            "section-gap": "120px",
-            "gutter": "24px",
-            "container-max": "1280px"
-        }
-      }
-    }
-  }
-</script>
-
 /* Style Dasar Global */
 body { 
-    background-color: #0D0D0D; 
+    background-color: #0D0D0D !important; 
     color: #e2e2e2; 
     overflow-x: hidden; 
     scroll-behavior: smooth; 
